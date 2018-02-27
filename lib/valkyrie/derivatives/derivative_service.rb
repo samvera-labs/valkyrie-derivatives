@@ -9,8 +9,8 @@ module Valkyrie::Derivatives
   class DerivativeService
     require 'valkyrie/local_file_service'
     require 'valkyrie/persist_derivatives'
-    Hydra::Derivatives.source_file_service = Valkyrie::LocalFileService
-    Hydra::Derivatives.output_file_service = Valkyrie::PersistDerivatives
+    Hydra::Derivatives.source_file_service = Valkyrie::Derivatives::LocalFileService
+    Hydra::Derivatives.output_file_service = Valkyrie::Derivatives::PersistDerivatives
     class_attribute :services
     self.services = []
     # Returns a derivative service for a change_set.

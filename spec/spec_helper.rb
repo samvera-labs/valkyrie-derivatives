@@ -13,3 +13,5 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+ROOT_PATH = Pathname.new(Dir.pwd)

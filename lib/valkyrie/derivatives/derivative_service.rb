@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'hydra/derivatives'
 module Valkyrie::Derivatives
   ##
   # Container for registering DerivativeServices.
@@ -7,8 +6,6 @@ module Valkyrie::Derivatives
   # To add a new service:
   #   DerivativeService.services << MyDerivativeService
   class DerivativeService
-    require 'valkyrie/local_file_service'
-    require 'valkyrie/persist_derivatives'
     Hydra::Derivatives.source_file_service = Valkyrie::Derivatives::LocalFileService
     Hydra::Derivatives.output_file_service = Valkyrie::Derivatives::PersistDerivatives
     class_attribute :services

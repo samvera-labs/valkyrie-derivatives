@@ -5,11 +5,11 @@ require 'valkyrie/derivatives/specs/shared_specs'
 
 RSpec.describe Valkyrie::Derivatives::FileCharacterizationService do
   it_behaves_like 'a Valkyrie::Derivatives::FileCharacterizationService'
-  let(:valid_file_node) { FileNode.new }
+  let(:valid_file_set) { FileSet.new }
   let(:file_characterization_service) { described_class }
   let(:persister) { Valkyrie::Persistence::Memory::MetadataAdapter.new.persister }
   before do
-    class FileNode < Valkyrie::Resource
+    class FileSet < Valkyrie::Resource
       attribute :id, Valkyrie::Types::ID.optional
       attribute :mime_type, Valkyrie::Types::Set
       attribute :height, Valkyrie::Types::Set
@@ -18,13 +18,13 @@ RSpec.describe Valkyrie::Derivatives::FileCharacterizationService do
     end
   end
   after do
-    Object.send(:remove_const, :FileNode)
+    Object.send(:remove_const, :FileSet)
   end
 
   it 'can have a registered service' do
     new_service = instance_double(described_class, valid?: true)
     service_class = class_double(described_class, new: new_service)
     described_class.services << service_class
-    expect(described_class.for(file_node: valid_file_node, persister: persister)).to eq new_service
+    expect(described_class.for(file_set: valid_file_set, persister: persister)).to eq new_service
   end
 end

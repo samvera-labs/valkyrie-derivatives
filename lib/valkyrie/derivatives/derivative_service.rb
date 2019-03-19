@@ -13,15 +13,15 @@ module Valkyrie::Derivatives
     # Returns a derivative service for a change_set.
     # @param resource [Valkyrie::ChangeSet]
     # @return [Valkyrie::DerivativeService]
-    def self.for(change_set)
-      services.map { |service| service.new(change_set) }.find(&:valid?) ||
-        new(change_set)
+    def self.for(id:)
+      services.map { |service| service.new(id: id) }.find(&:valid?) ||
+        new(id: id)
     end
-    attr_reader :change_set
+    attr_reader :id
     delegate :mime_type, :uri, to: :change_set
-    # @param resource [Valkyrie::Resource]
-    def initialize(change_set)
-      @change_set = change_set
+    # @param id [Valkyrie::ID]
+    def initialize(id:)
+      @id = id
     end
 
     # Deletes any derivatives generated.

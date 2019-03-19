@@ -1,21 +1,19 @@
 # frozen_string_literal: true
 RSpec.shared_examples 'a Valkyrie::Derivatives::DerivativeService' do
   before do
-    raise 'valid_change_set must be set with `let(:valid_change_set)`' unless
-      defined? valid_change_set
+    raise 'valid_id must be set with `let(:valid_id)`' unless
+      defined? valid_id
     raise 'derivative_service must be set with `let(:derivative_service)`' unless
       defined? derivative_service
   end
 
-  subject { derivative_service.new(valid_change_set) }
+  subject { derivative_service.new(id: valid_id) }
 
   it { is_expected.to respond_to(:create_derivatives).with(0).arguments }
 
   it { is_expected.to respond_to(:cleanup_derivatives).with(0).arguments }
 
-  it { is_expected.to respond_to(:change_set) }
-
-  it { is_expected.to respond_to(:mime_type) }
+  it { is_expected.to respond_to(:id) }
 
   describe "#valid?" do
     context "when given a resource it handles" do
@@ -23,8 +21,8 @@ RSpec.shared_examples 'a Valkyrie::Derivatives::DerivativeService' do
     end
   end
 
-  it "takes a change_set as an argument" do
-    obj = derivative_service.new(valid_change_set)
-    expect(obj.change_set.resource).to eq valid_change_set.resource
+  it "takes an id as an argument" do
+    obj = derivative_service.new(id: valid_id)
+    expect(obj.id).to eq valid_id
   end
 end
